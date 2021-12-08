@@ -24,7 +24,7 @@ namespace CarRentalManagement.Server.Controllers
         [HttpGet]
         public async Task<ActionResult> GetMakes()
         {
-            var makes = await _unitOfWork.MakesRepo.GetAll();
+            var makes = await _unitOfWork.Makes.GetAll();
             return Ok(makes);
         }
 
@@ -32,7 +32,7 @@ namespace CarRentalManagement.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> GetMake(int id)
         {
-            var make = await _unitOfWork.MakesRepo.Get(x => x.Id == id);
+            var make = await _unitOfWork.Makes.Get(x => x.Id == id);
             if (make == null)
             {
                 return NotFound();
@@ -50,11 +50,11 @@ namespace CarRentalManagement.Server.Controllers
             }
 
             
-            _unitOfWork.MakesRepo.Update(make);
+            _unitOfWork.Makes.Update(make);
 
             try
             {
-                await _unitOfWork.Save();
+                await _unitOfWork.Save(this.HttpContext);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -75,8 +75,8 @@ namespace CarRentalManagement.Server.Controllers
         [HttpPost]
         public async Task<ActionResult> PostMake(Make make)
         {
-            await _unitOfWork.MakesRepo.Insert(make);
-            await _unitOfWork.Save();
+            await _unitOfWork.Makes.Insert(make);
+            await _unitOfWork.Save(HttpContext);
 
             return CreatedAtAction("GetMake", new { id = make.Id }, make);
         }
@@ -85,14 +85,14 @@ namespace CarRentalManagement.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMake(int id)
         {
-            var make = await _unitOfWork.MakesRepo.Get(q => q.Id == id);
+            var make = await _unitOfWork.Makes.Get(q => q.Id == id);
             if (make == null)
             {
                 return NotFound();
             }
 
-            await _unitOfWork.MakesRepo.Delete(id);
-            await _unitOfWork.Save();
+            await _unitOfWork.Makes.Delete(id);
+            await _unitOfWork.Save(HttpContext);
 
             return NoContent();
         }
@@ -100,8 +100,8 @@ namespace CarRentalManagement.Server.Controllers
 
         private async Task<bool> MakeExists(int id)
         {
-            var make = await _unitOfWork.MakesRepo.Get(q => q.Id == id);
-            return make == null;
+            var make = await _unitOfWork.Makes.Get(q => q.Id == id);
+            return make != null;
         }
 
     }

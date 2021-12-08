@@ -41,7 +41,7 @@ namespace CarRentalManagement.Server
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAuthentication()
-.AddIdentityServerJwt();
+                .AddIdentityServerJwt();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
