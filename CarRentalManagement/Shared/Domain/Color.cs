@@ -2,7 +2,7 @@
 
 namespace CarRentalManagement.Shared.Domain
 {
-    public class Make : BaseDomainModel
+    public class Color : BaseDomainModel
     {
         [Required]
         public string Name { get; set; }

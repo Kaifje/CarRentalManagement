@@ -11,51 +11,51 @@ using CarRentalManagement.Server.IRepository;
 
 namespace CarRentalManagement.Server.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class ColoursController : ControllerBase
+    public class ColorsController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ColoursController(IUnitOfWork unitOfWork)
+        public ColorsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Colours
-        // GET: /Colours
+        // GET: api/Colors
+        // GET: /Colors
         [HttpGet]
-        public async Task<IActionResult> GetColours()
+        public async Task<IActionResult> GetColors()
         {
-            var Colours = await _unitOfWork.Colours.GetAll();
-            return Ok(Colours);
+            var Colors = await _unitOfWork.Colors.GetAll();
+            return Ok(Colors);
         }
 
-        // GET: /Colours/5
+        // GET: /Colors/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetColour(int id)
+        public async Task<IActionResult> GetColor(int id)
         {
-            var Colour = await _unitOfWork.Colours.Get(q => q.Id == id);
+            var Color = await _unitOfWork.Colors.Get(q => q.Id == id);
 
-            if (Colour == null)
+            if (Color == null)
             {
                 return NotFound();
             }
 
-            return Ok(Colour);
+            return Ok(Color);
         }
 
-        // PUT: api/Colours/5
+        // PUT: api/Colors/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutColour(int id, Colour Colour)
+        public async Task<IActionResult> PutColor(int id, Color Color)
         {
-            if (id != Colour.Id)
+            if (id != Color.Id)
             {
                 return BadRequest();
             }
 
-            _unitOfWork.Colours.Update(Colour);
+            _unitOfWork.Colors.Update(Color);
 
             try
             {
@@ -63,7 +63,7 @@ namespace CarRentalManagement.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!await ColourExists(id))
+                if (!await ColorExists(id))
                 {
                     return NotFound();
                 }
@@ -76,36 +76,36 @@ namespace CarRentalManagement.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Colours
+        // POST: api/Colors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Colour>> PostColour(Colour Colour)
+        public async Task<ActionResult<Color>> PostColor(Color Color)
         {
-            await _unitOfWork.Colours.Insert(Colour);
+            await _unitOfWork.Colors.Insert(Color);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetColour", new { id = Colour.Id }, Colour);
+            return CreatedAtAction("GetColor", new { id = Color.Id }, Color);
         }
 
-        // DELETE: api/Colours/5
+        // DELETE: api/Colors/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteColour(int id)
+        public async Task<IActionResult> DeleteColor(int id)
         {
-            var Colour = await _unitOfWork.Colours.Get(q => q.Id == id);
-            if (Colour == null)
+            var Color = await _unitOfWork.Colors.Get(q => q.Id == id);
+            if (Color == null)
             {
                 return NotFound();
             }
-            await _unitOfWork.Colours.Delete(id);
+            await _unitOfWork.Colors.Delete(id);
             await _unitOfWork.Save(HttpContext);
 
             return NoContent();
         }
 
-        private async Task<bool> ColourExists(int id)
+        private async Task<bool> ColorExists(int id)
         {
-            var Colour = await _unitOfWork.Colours.Get(q => q.Id == id);
-            return Colour == null;
+            var Color = await _unitOfWork.Colors.Get(q => q.Id == id);
+            return Color == null;
         }
     }
 }

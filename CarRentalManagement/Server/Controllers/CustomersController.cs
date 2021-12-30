@@ -11,7 +11,7 @@ using CarRentalManagement.Server.IRepository;
 
 namespace CarRentalManagement.Server.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
     {
@@ -80,6 +80,7 @@ namespace CarRentalManagement.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomer(Customer Customer)
         {
+                
             await _unitOfWork.Customers.Insert(Customer);
             await _unitOfWork.Save(HttpContext);
 

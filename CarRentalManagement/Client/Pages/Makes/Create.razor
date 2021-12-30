@@ -1,0 +1,42 @@
+﻿@page "/makes/create"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+@inject IJSRuntime js
+@attribute [Authorize]
+
+
+<h3 class=card-title>Sett inn nytt merke</h3>
+<hr />
+<br />
+
+<EditForm Model="@make" OnValidSubmit="CreateMake">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class=form-group>
+        <label>Navn: </label>
+        <div>
+            <InputText @bind-Value="@make.Name" class="form-control" />
+            <ValidationMessage For="@(() => make.Name)" />
+        </div>
+    </div>
+        <button type="submit" class="btn btn-success btn-block">Lagre Merke</button>
+</EditForm>
+
+
+@code {
+    Make make = new Make();
+
+    protected async override Task OnInitializedAsync()
+    {
+        
+    }
+
+
+    private async Task CreateMake()
+    {
+        await _client.PostAsJsonAsync(Endpoints.MakesEndpoint, make);
+        _navManager.NavigateTo("/makes/");
+    }
+
+}

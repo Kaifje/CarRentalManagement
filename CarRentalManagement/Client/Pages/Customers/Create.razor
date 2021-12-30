@@ -1,0 +1,76 @@
+﻿@page "/customers/create"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+@inject IJSRuntime js
+@attribute [Authorize]
+
+
+<h3 class=card-title>Sett inn ny kunde</h3>
+<hr />
+<br />
+
+<EditForm Model="@customer" OnValidSubmit="CreateCustomer">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class=form-group>
+        <label>Fornavn: </label>
+        <div>
+            <InputText @bind-Value="@customer.FirstName" class="form-control" />
+            <ValidationMessage For="@(() => customer.FirstName)" />
+        </div>
+    </div>
+    <div class=form-group>
+        <label>Etternavn: </label>
+        <div>
+            <InputText @bind-Value="@customer.LastName" class="form-control" />
+            <ValidationMessage For="@(() => customer.LastName)" />
+        </div>
+    </div>
+    <div class=form-group>
+        <label>Skatteid: </label>
+        <div>
+            <InputText @bind-Value="@customer.TaxId" class="form-control" />
+            <ValidationMessage For="@(() => customer.TaxId)" />
+        </div>
+    </div>
+    <div class=form-group>
+        <label>Adresse: </label>
+        <div>
+            <InputText @bind-Value="@customer.Address" class="form-control" />
+            <ValidationMessage For="@(() => customer.Address)" />
+        </div>
+    </div>
+    <div class=form-group>
+        <label>Kontaktnr: </label>
+        <div>
+            <InputText @bind-Value="@customer.ContactNumber" class="form-control" />
+            <ValidationMessage For="@(() => customer.ContactNumber)" />
+        </div>
+    </div>
+    <div class=form-group>
+        <label>Email: </label>
+        <div>
+            <InputText @bind-Value="@customer.EmailAddress" class="form-control" />
+            <ValidationMessage For="@(() => customer.EmailAddress)" />
+        </div>
+    </div>
+        <button type="submit" class="btn btn-success btn-block">Lagre kunde</button>
+</EditForm>
+
+@code {
+    Customer customer = new Customer();
+
+    protected async override Task OnInitializedAsync()
+    {
+
+    }
+
+
+    private async Task CreateCustomer()
+    {
+        await _client.PostAsJsonAsync(Endpoints.CustomersEndpoint, customer);
+        _navManager.NavigateTo("/customers/");
+    }
+
+}

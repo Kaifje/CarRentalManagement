@@ -12,7 +12,7 @@ namespace CarRentalManagement.Server.IRepository
         IGenericRepository<Model> Models { get; }
         IGenericRepository<Vehicle> Vehicles { get;}
         IGenericRepository<Customer> Customers { get;}
-        IGenericRepository<Colour> Colours { get;}
+        IGenericRepository<Color> Colors { get;}
         IGenericRepository<Booking> Bookings { get;}
 
     }
