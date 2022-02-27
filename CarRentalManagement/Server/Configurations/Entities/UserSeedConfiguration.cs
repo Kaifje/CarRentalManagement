@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace CarRentalManagement.Server.Configurations.Entities
 {
@@ -21,6 +22,16 @@ namespace CarRentalManagement.Server.Configurations.Entities
                      UserName = "Admin",
                      NormalizedUserName = "ADMIN",
                      PasswordHash = hasher.HashPassword(null, "P@ssword1")
+                 }, new ApplicationUser
+                 {
+                     Id = "73bb9782-26cf-4be7-8348-230fa79bd65e",
+                     Email= "kai@midnightunit.com",
+                     NormalizedEmail= "KAI@MIDNIGHTUNIT.COM",
+                     FirstName = "System",
+                     LastName = "User",
+                     UserName= "user@localhost.com",
+                     NormalizedUserName="USER@LOCALHOST.COM",
+                     PasswordHash = hasher.HashPassword(null, "P@ssword1") 
                  }
             );
         }
