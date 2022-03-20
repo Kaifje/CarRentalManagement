@@ -51,22 +51,4 @@ else
     </table>
 }
 @code {
-    private List<Model> Models;
-
-    protected async override Task OnInitializedAsync()
-    {
-        Models = await _client.GetFromJsonAsync<List<Model>>($"{Endpoints.ModelsEndpoint}");
-    }
-
-    private async Task Delete(int id)
-    {
-        var model = Models.First(x => x.Id == id);
-        var confirm = await js.InvokeAsync<bool>("confirm", $"Vil du slette {model.Name}?");
-        if (confirm)
-        {
-            await _client.DeleteAsync($"{Endpoints.ModelsEndpoint}/{id}");
-            await OnInitializedAsync();
-        }
-
-    }
 }

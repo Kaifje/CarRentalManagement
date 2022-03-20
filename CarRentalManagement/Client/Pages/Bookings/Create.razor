@@ -11,16 +11,5 @@
 <FormComponent ButtonText="Create Booking" OnValidSubmit="@CreateBooking" booking="booking" />
 
 @code {
-    Booking booking = new Booking
-    {
-        DateOut = DateTime.Now.Date
-    };
-
-
-    private async Task CreateBooking()
-    {
-        await _client.PostAsJsonAsync(Endpoints.BookingsEndpoint, booking);
-        _navManager.NavigateTo("/bookings/");
-    }
 
 }

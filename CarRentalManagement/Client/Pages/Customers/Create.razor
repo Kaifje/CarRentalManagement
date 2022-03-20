@@ -59,18 +59,5 @@
 </EditForm>
 
 @code {
-    Customer customer = new Customer();
-
-    protected async override Task OnInitializedAsync()
-    {
-
-    }
-
-
-    private async Task CreateCustomer()
-    {
-        await _client.PostAsJsonAsync(Endpoints.CustomersEndpoint, customer);
-        _navManager.NavigateTo("/customers/");
-    }
 
 }

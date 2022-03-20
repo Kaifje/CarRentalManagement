@@ -50,21 +50,4 @@ else
     </table>
 }
 @code {
-    private List<Color> Colors;
-
-    protected async override Task OnInitializedAsync()
-    {
-        Colors = await _client.GetFromJsonAsync<List<Color>>($"{Endpoints.ColorsEndpoint}");
-    }
-
-    private async Task Delete(int colorid)
-    {
-        var color = Colors.First(x => x.Id == colorid);
-        var confirm = await js.InvokeAsync<bool>("confirm", $"Vil du slette {color.Name}?");
-        if (confirm)
-        {
-            await _client.DeleteAsync($"{Endpoints.ColorsEndpoint}/{colorid}");
-            await OnInitializedAsync();
-        }
-    }
 }

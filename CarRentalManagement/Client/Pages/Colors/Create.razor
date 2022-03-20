@@ -25,18 +25,5 @@
 
 
 @code {
-    Color color = new Color();
-
-    protected async override Task OnInitializedAsync()
-    {
-        
-    }
-
-
-    private async Task CreateColor()
-    {
-        await _client.PostAsJsonAsync(Endpoints.ColorsEndpoint, color);
-        _navManager.NavigateTo("/colors/");
-    }
 
 }

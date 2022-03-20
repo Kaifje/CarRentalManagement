@@ -50,22 +50,4 @@ else
     </table>
 }
 @code {
-    private List<Make> Makes;
-
-    protected async override Task OnInitializedAsync()
-    {
-        Makes = await _client.GetFromJsonAsync<List<Make>>($"{Endpoints.MakesEndpoint}");
-    }
-
-    private async Task Delete(int makeid)
-    {
-        var make = Makes.First(x => x.Id == makeid);
-        var confirm = await js.InvokeAsync<bool>("confirm", $"Vil du slette {make.Name}?");
-        if (confirm)
-        {
-            await _client.DeleteAsync($"{Endpoints.MakesEndpoint}/{makeid}");
-            await OnInitializedAsync();
-        }
-
-    }
 }

@@ -55,22 +55,5 @@ else
     </table>
 }
 @code {
-    private List<Customer> Customers;
 
-    protected async override Task OnInitializedAsync()
-    {
-        Customers = await _client.GetFromJsonAsync<List<Customer>>($"{Endpoints.CustomersEndpoint}");
-    }
-
-    private async Task Delete(int Customerid)
-    {
-        var Customer = Customers.First(x => x.Id == Customerid);
-        var confirm = await js.InvokeAsync<bool>("confirm", $"Vil du slette {Customer.ContactNumber}?");
-        if (confirm)
-        {
-            await _client.DeleteAsync($"{Endpoints.CustomersEndpoint}/{Customerid}");
-            await OnInitializedAsync();
-        }
-
-    }
 }
